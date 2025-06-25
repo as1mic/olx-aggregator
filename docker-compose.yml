@@ -1,0 +1,18 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: auto_aggregator
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:
